@@ -1,0 +1,65 @@
+#include<cstdlib>
+#include<iostream>
+using namespace std;
+/*
+This program plays a simple game.The computer picks a random number
+from
+0 to 99, and the user tries to guess the number.
+*/
+int totalchances=7;
+int main()
+{
+ int number;        //the computer's random number
+ int guess;         //the user's guess
+ int chances=0,score=0,chanscore;        //chanscore stores score for 1 successful chance
+ char ans;
+ do
+ {
+   chances=0;
+   score=0;
+   cout<<"\nWelcome to the High/Low game.";
+   cout<<"\nI will pick a random number from 0 to 99.";
+   cout<<"\nYou must try to guess the number.";
+   int rand(void);
+   number=(int)(rand()%100);
+   chanscore=100/totalchances;        //score for each successful chance
+   do
+   {
+     cout<<"\n\nWhat is your guess? (0 to 99) ";
+     cin>>guess;
+     if((guess<0)||(guess>100))
+     {
+	cout<<"\nSorry,but your guess "<<guess<<"must be from 0 to 99.";
+	continue;
+     }
+     else if(guess < number)
+     {
+	cout<<"\n"<<guess<<" is low.Try a higher number.";
+     }
+     else if(guess > number)
+     {
+	cout<<"\n"<<guess<<" is high.Try a lower number.";
+     }
+     else		//if correct number is guessed
+     {			//number is correct, and the "do" loop will end below
+	cout<<"\n"<<guess<<" is correct. Congratulations!";
+	score=chanscore*(totalchances-chances);   //score calculated for number of chances left
+	cout<<"\nYour score is"<<score<<endl;
+	break;
+     }
+     chances++;
+     if(guess!=number)
+	 cout<<"\nNow you have "<<(totalchances-chances)<<"chances left."<<endl;
+     if(chances==totalchances)
+	 { cout<<"\nOnly "<<totalchances<<"chances are allowed.Better luck next time";
+	   cout<<"\nThe actual number was "<<number<<endl;
+	   break;
+	 }
+     }while (guess!=number);
+     cout<<"\n\nThank you for playing High/Low!";
+     cout<<"\nWant to play it again? (y/n)...";
+     cin>>ans;
+   }
+   while(ans=='y' || ans=='Y');
+   while(0);
+ }
